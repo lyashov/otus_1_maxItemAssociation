@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+
+<body>
+
+    <p>Start... </p>
+
+    <script>
+        const user1Basket = ['a', 'b'];
+        const user2Basket = ['a', 'c'];
+        const user3Basket = ['d', 'e'];   
+        const basketHistory = [user1Basket, user2Basket, user3Basket];
+
+
+        function createMapItems(basketHistory) {
+            let items = new Map();
+            for (indexBasket in basketHistory) {
+                let userItems = basketHistory[indexBasket];
+                for (indexItem in userItems) {
+                    let item = userItems[indexItem];
+                    items.get(item) === undefined ? items.set(item, 1) : items.set(item, items.get(item) + 1);
+                }
+            }
+            return items;
+        }
+
+        function writeMap(myMap, count){
+            let index = 0;
+            for (let item of myMap) {
+                document.write(item[0] + item[1] + " <br/>");
+                index++ 
+                if(index >= count){
+                    break;
+                }
+            }
+        }
+
+        function maxItemAssociation(basketHistory) {
+            let items = createMapItems(basketHistory);
+            return new Map([...items.entries()].sort((a, b) => b[1] - a[1]));
+        }
+
+        const mapAssociation = maxItemAssociation(basketHistory);
+        const countReccomendation = 3;
+        writeMap(mapAssociation, countReccomendation);
+    </script>
+
+    <p>Finish!</p>
+
+</body>
+
+</html>
